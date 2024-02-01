@@ -21,7 +21,7 @@ const reducer = (state, action) => {
             return{...state, loading: true}
         
         case get_popular_anime:
-            return {...state, PopularAnimes: action.payload, loading: false}
+            return {...state, PopularAnimes: action.payload, loading: false}; // sets the state
 
         default:
             return state;
@@ -51,9 +51,7 @@ export const GlobalContextProvider = ({children}) => {
         const response = await fetch(`${baseURL}/top/anime?filter=bypopularity`);
         const data = await response.json();
 
-        dispatch({type: get_popular_anime, payload: data.data});
-
-        console.log(state.PopularAnimes);
+        dispatch({type: get_popular_anime, payload: data.data}); // sends the array of popular animes to the reducer function as a payload
     }
 
     // upon initial render, call this 
@@ -63,7 +61,7 @@ export const GlobalContextProvider = ({children}) => {
 
     return(
         <GlobalContext.Provider value={{
-
+            ...state,
         }}>
             {children}
         </GlobalContext.Provider>
